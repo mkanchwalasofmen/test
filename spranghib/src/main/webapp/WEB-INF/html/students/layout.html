@@ -1,0 +1,64 @@
+<div class="alert alert-error" ng-show="error">
+    {{errorMessage}}
+</div>
+<form class="form-horizontal">
+    <div class="control-group">
+        <label class="control-label" for="inputEmail">Student Name</label>
+
+        <div class="controls">
+            <input type="text" id="inputEmail" ng-model="student.name" placeholder="Student Name" required min="2">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="inputEmail">Percentage</label>
+
+        <div class="controls">
+
+
+            <input class="span3" type="text" id="inputPercentage" ng-model="student.percentage" placeholder="Percentage" required min="1">
+            <span class="add-on">%</span>
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <label class="checkbox">
+                <input type="checkbox" ng-model="student.eligible"> Is Eligible
+            </label>
+        </div>
+        <hr />
+        <div class="controls">
+            <button type="button" class="btn btn-primary" ng-disabled="!student.name || !student.percentage" ng-hide="editMode" ng-click="addNewStudent(student)">Add Student</button>
+            <button type="button" class="btn btn-primary" ng-disabled="!student.name || !student.percentage" ng-show="editMode" ng-click="updateStudent(student)">Save Student</button>
+            <button type="button" class="btn" ng-click="resetStudentForm()">Reset</button>
+        </div>
+    </div>
+</form>
+<hr />
+<h3>Students List</h3>
+<div class="alert alert-info" ng-show="students.length == 0">
+    No students found
+</div>
+<table class="table table-bordered table-striped" ng-show="students.length > 0">
+    <thead>
+        <tr>
+            <th style="text-align: center; width: 25px;">Id</th>
+            <th style="text-align: center;">Name</th>
+            <th style="text-align: center;">Percentage</th>
+            <th style="text-align: center;">Eligible</th>
+            <th style="text-align: center;">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="student in students | orderBy:predicate">
+            <td style="text-align: center;">{{student.id}}</td>
+            <td>{{student.name}}</td>
+            <td>{{student.percentage}}</td>
+            <td style="text-align: center;width: 20px;"><span ng-show="student.eligible" class="icon-ok"></span></td>
+            <td style="width:100px;text-align: center;">
+                <button class="btn btn-mini btn-danger" ng-click="removeStudent(student.id)">Remove</button>
+                <button class="btn btn-mini btn-success" ng-click="editStudent(student)">Edit</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<button class="btn btn-danger" ng-show="students.length > 1" ng-click="removeAllStudents()">Remove All Students</button>
