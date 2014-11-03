@@ -50,4 +50,5 @@ public class StudentController {
     public String getStudentPartialPage(ModelMap modelMap) {
         return "students/layout";
     }
+    
 }
